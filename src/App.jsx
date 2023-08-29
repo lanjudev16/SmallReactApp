@@ -1,29 +1,39 @@
 import React, { useEffect, useState } from "react";
 import SIngleCardData from "./Components/SIngleCardData";
-
+import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer/Footer";
 const App = () => {
-  const [data,setData]=useState([])
+  const [data, setData] = useState([]);
+
+    
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
-
-  function filterData(query) {
-    const lowerCaseQuery = query.toLowerCase();
-    const filtered = data.filter(item =>
-      item.name.toLowerCase().includes(lowerCaseQuery)
-    );
-
-    setFilteredData(filtered.length > 0 || query === '' ? filtered : initialData);
-  }
-
+  const [filteredData, setFilteredData] = useState([]);
   useEffect(() => {
     const url = "https://api.punkapi.com/v2/beers?page=1&per_page=80";
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((data) =>{
+         setData(data)
+         setFilteredData(data)
+      });
   }, []);
+
+
+
+  console.log(filteredData);
+  function filterData(query) {
+    const lowerCaseQuery = query.toLowerCase();
+    const filtered = data.filter((item) =>
+      item.name.toLowerCase().includes(lowerCaseQuery)
+    );
+
+    setFilteredData(filtered.length > 0 || query === "" ? filtered : data);
+  }
+
   return (
     <div>
-      <div className="text-center mt-5">
+      <Navbar></Navbar>
+      <div className="text-center lg:mt-[90px] mt-[100px]">
         <input
           type="text"
           value={searchQuery}
@@ -43,6 +53,7 @@ const App = () => {
           ></SIngleCardData>
         ))}
       </div>
+      <Footer></Footer>
     </div>
   );
 };

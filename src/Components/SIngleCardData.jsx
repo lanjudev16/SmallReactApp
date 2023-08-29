@@ -2,7 +2,7 @@ import React from "react";
 
 const SIngleCardData = ({singleCardData}) => {
   return (
-    <div className="shadow-md border-[1px] rounded-md p-3">
+    <div className="shadow-md border-[1px] rounded-md p-3 lg:mx-0 mx-5">
       <img className="w-full h-[450px] object-fill" src={singleCardData.image_url} alt={singleCardData.name} />
       <h1>{singleCardData.name}</h1>
       <h2>{singleCardData.tagline}</h2>
